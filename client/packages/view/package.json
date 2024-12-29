@@ -1,0 +1,8 @@
+{
+  "name": "@codeserk/media-client-view",
+  "dependencies": {
+    "@material/material-color-utilities": "^0.3.0",
+    "@preact-signals/safe-react": "^0.8.1",
+    "csstype": "^3.1.3"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "music",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~4.0.0",
+    "expo": "~52.0.23",
+    "expo-av": "~15.0.1",
+    "expo-status-bar": "~2.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.5",
+    "react-native-web": "~0.19.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@preact-signals/safe-react": "^0.8.1",
+    "@types/react": "~18.3.12",
+    "@types/react-dom": "^18",
+    "@types/react-native-web": "^0",
+    "typescript": "~5.5.0"
+  },
+  "private": true
+}
