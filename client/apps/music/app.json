@@ -15,7 +15,9 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["audio"]
+        "UIBackgroundModes": [
+          "audio"
+        ]
       },
       "bundleIdentifier": "com.anonymous.music"
     },
@@ -27,6 +29,22 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Noto_Sans_HK/NotoSansHK-Thin.otf",
+            "./assets/fonts/Noto_Sans_HK/NotoSansHK-Light.otf",
+            "./assets/fonts/Noto_Sans_HK/NotoSansHK-Regular.otf",
+            "./assets/fonts/Noto_Sans_HK/NotoSansHK-Bold.otf",
+            "./assets/fonts/Noto_Sans_HK/NotoSansHK-Black.otf",
+            "./assets/fonts/Poppins-Regular.ttf",
+            "./assets/fonts/Poppins-Bold.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }

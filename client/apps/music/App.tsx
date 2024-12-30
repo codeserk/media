@@ -2,17 +2,26 @@ import { useComputed, useSignal } from '@preact-signals/safe-react'
 import { useJellyfinSourceStore } from 'core/modules/sources/jellyfin/jellyfin.store'
 import { Compose } from 'core/utils/compose'
 import { Audio } from 'expo-av'
+import { useFonts } from 'expo-font'
 import { StatusBar } from 'expo-status-bar'
 import { Image, Pressable, StyleSheet } from 'react-native'
+import { FadeInUp } from 'react-native-reanimated'
+import { HStack } from 'view/components/HStack'
 import { Text } from 'view/components/Text'
 import { View } from 'view/components/View'
+import { VStack } from 'view/components/VStack'
 import { ThemeStoreContext, useThemeStore } from 'view/modules/theme/theme.store'
 
 export default function App() {
   const theme = useThemeStore({
     theme: {
       color: { red: '#994123' },
+      space: { 2: 24 },
     },
+  })
+
+  const [loaded, error] = useFonts({
+    'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
   })
 
   const width = useSignal(150)
@@ -53,14 +62,29 @@ export default function App() {
     <Compose components={[[ThemeStoreContext.Provider, { value: theme }]]}>
       <View flex={1} alignItems="center" justifyContent="center">
         <Text>Open up App.tsx to start working on your app!</Text>
-        <Text>OK</Text>
+        <Text debounceReady={500} color="green" skeleton={<Text text="loading..." />}>
+          OK
+        </Text>
         <StatusBar style="auto" />
+
+        <VStack space={2}>
+          <Text>1</Text>
+          <Text>2</Text>
+          <Text>3</Text>
+        </VStack>
+
+        <HStack space={2}>
+          <Text>1</Text>
+          <Text>2</Text>
+          <Text>3</Text>
+        </HStack>
 
         <View
           debounceReady={500}
-          height={30}
+          height={40}
           width={width}
           backgroundColor="red"
+          animated={{ entering: FadeInUp }}
           filter="grayscale: 10">
           <Text>Hello?</Text>
           {console.log('render inside')}
