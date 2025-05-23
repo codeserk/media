@@ -1,5 +1,5 @@
 {
-  "name": "@codeserk/media-client-view",
+  "name": "view",
   "types": "./src/index.tsx",
   "main": "./src/index.tsx",
   "dependencies": {

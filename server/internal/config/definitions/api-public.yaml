@@ -1,0 +1,71 @@
+api:
+  port: 5000
+  signature:
+    skip: false
+    dashboardSecret: secret
+    consumerSecret: secret
+
+mongo:
+  host: localhost
+  port: 27019
+  user: admin
+  password: password
+  database: media
+
+redis:
+  host: localhost
+  port: 6380
+
+jwt:
+  secret: jwt-secret
+  issuer: press
+
+email:
+  smtp:
+    host:
+    port:
+    user:
+    password:
+  fromEmail: info@codeserk.es
+  fromName: media.codeserk.es
+  product:
+    name: media.codeserk.es
+    logo: https://www.codeserk.es/_astro/logo.-KpCB5bT.png
+    link: https://www.codeserk.es
+
+media:
+  tmpFolder: .data/temporal/
+  providers:
+    s3:
+      region:
+      accessKeyId:
+      secretAccessKey:
+      bucketName:
+      endpoint:
+      publicEndpoint:
+
+dashboard:
+  baseURL: http://localhost:5174
+
+bookSource:
+  google:
+    isEnabled: false
+    apiKey:
+  laCasaDelLibro:
+    isEnabled: false
+  libraryThing:
+    isEnabled: false
+    apiKey:
+  storyGraph:
+    isEnabled: false
+  goodreads:
+    isEnabled: false
+
+ai:
+  provider: mistral
+  mistral:
+    apiKey:
+    model: mistral-medium-latest
+    temperature: 0.5
+    topP: 0.8
+    maxTokens: 500

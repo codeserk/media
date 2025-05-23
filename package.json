@@ -1,0 +1,10 @@
+{
+  "name": "codeserk-media",
+  "workspaces": [
+    "client/apps/*",
+    "client/packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

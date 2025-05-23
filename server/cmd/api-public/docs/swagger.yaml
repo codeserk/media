@@ -1,0 +1,324 @@
+basePath: /
+definitions:
+  auth.loginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  auth.loginResponse:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/user.Response'
+    type: object
+  auth.registerRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  auth.verifyEmailRequest:
+    properties:
+      email:
+        type: string
+      token:
+        type: string
+    required:
+    - email
+    - token
+    type: object
+  book.searchResponse:
+    properties:
+      goodreads:
+        type: any
+      google:
+        type: any
+      items:
+        type: any
+      open:
+        type: any
+    type: object
+  controller.HTTPError:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  health.healthResponse:
+    properties:
+      ok:
+        type: boolean
+    type: object
+  user.OrganizationResponse:
+    properties:
+      id:
+        type: string
+      permissions:
+        $ref: '#/definitions/user.PermissionsResponse'
+    required:
+    - id
+    - permissions
+    type: object
+  user.PermissionsResponse:
+    properties:
+      delete:
+        type: boolean
+      read:
+        type: boolean
+      update:
+        type: boolean
+    required:
+    - delete
+    - read
+    - update
+    type: object
+  user.ProjectResponse:
+    properties:
+      id:
+        type: string
+      permissions:
+        $ref: '#/definitions/user.PermissionsResponse'
+    required:
+    - id
+    - permissions
+    type: object
+  user.Response:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      isEmailVerified:
+        type: boolean
+      name:
+        type: string
+      organizations:
+        items:
+          $ref: '#/definitions/user.OrganizationResponse'
+        type: array
+      projects:
+        items:
+          $ref: '#/definitions/user.ProjectResponse'
+        type: array
+      role:
+        type: string
+      updatedAt:
+        type: string
+    required:
+    - createdAt
+    - email
+    - id
+    - isEmailVerified
+    - name
+    - organizations
+    - projects
+    - role
+    - updatedAt
+    type: object
+info:
+  contact: {}
+  description: Public API for @codeserk / media
+  title: Media API / Public
+  version: "1.0"
+paths:
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login using credentials
+      operationId: login
+      parameters:
+      - description: Login request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.loginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.loginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+      summary: Login
+      tags:
+      - auth
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register using email and credentials
+      operationId: register
+      parameters:
+      - description: Register request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.registerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/auth.loginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+      summary: Register
+      tags:
+      - auth
+  /api/v1/auth/send-verify-email:
+    post:
+      consumes:
+      - application/json
+      description: Re-sends the verification email
+      operationId: sendVerifyEmail
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+      security:
+      - ApiKeyAuth: []
+      summary: Send verify email
+      tags:
+      - auth
+  /api/v1/auth/verify-email:
+    post:
+      consumes:
+      - application/json
+      description: Verifies the user email
+      operationId: verifyEmail
+      parameters:
+      - description: Verify email request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.verifyEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+      summary: Verify email
+      tags:
+      - auth
+  /api/v1/books/search:
+    get:
+      consumes:
+      - application/json
+      description: Search books using a query
+      operationId: searchBooks
+      parameters:
+      - in: query
+        minLength: 3
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/book.searchResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+      summary: Search
+      tags:
+      - books
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Endpoint to make sure the application is healthy
+      operationId: health
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.healthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controller.HTTPError'
+      summary: Health endpoint
+      tags:
+      - health
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  Signature:
+    in: header
+    name: x-signature
+    type: apiKey
+  SignatureApp:
+    in: header
+    name: x-signature-app
+    type: apiKey
+swagger: "2.0"

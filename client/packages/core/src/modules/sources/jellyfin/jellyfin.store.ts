@@ -1,9 +1,7 @@
 import { Api, Jellyfin } from '@jellyfin/sdk'
-import { AudioApi } from '@jellyfin/sdk/lib/generated-client/api/audio-api'
 import { UniversalAudioApi } from '@jellyfin/sdk/lib/generated-client/api/universal-audio-api'
 import { BaseItemDto } from '@jellyfin/sdk/lib/generated-client/models'
 import {
-  getAudioApi,
   getImageApi,
   getItemsApi,
   getLibraryApi,
@@ -24,7 +22,7 @@ export function useJellyfinSourceStore() {
   const servers = useSignal<any[]>([])
   const api = useSignal<Api | undefined>(undefined)
   const collections = useSignal<BaseItemDto[]>([])
-  const items = useSignal<any[]>([])
+  const items = useSignal<BaseItemDto[]>([])
   const audios = useSignal<UniversalAudioApi | undefined>(undefined)
 
   const images = useSignal<ImageUrlsApi | undefined>(undefined)

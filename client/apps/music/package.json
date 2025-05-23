@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint --fix .",
+    "lint": "eslint --fix src App.tsx index.ts",
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -27,7 +27,7 @@
     "@types/react": "~18.3.12",
     "@types/react-dom": "^18",
     "@types/react-native-web": "^0",
-    "typescript": "~5.5.0"
+    "typescript": "^5.7.2"
   },
   "private": true
 }

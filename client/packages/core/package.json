@@ -1,5 +1,5 @@
 {
-  "name": "@codeserk/media-client-core",
+  "name": "core",
   "devDependencies": {
     "@preact-signals/safe-react": "^0.8.1"
   },

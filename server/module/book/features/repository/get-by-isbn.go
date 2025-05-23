@@ -1,0 +1,10 @@
+package repository
+
+import "media/module/book"
+
+func (r *repository) GetByISBN(isbn string) (*entity, error) {
+	ctx, cancel := r.db.Context()
+	defer cancel()
+
+	return r.base.GetOne(ctx, book.FilterParams{ISBN: isbn})
+}

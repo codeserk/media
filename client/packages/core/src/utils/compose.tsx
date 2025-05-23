@@ -1,10 +1,9 @@
-import React, { FC, ProviderExoticComponent, ReactNode } from 'react'
+import React, { FC, PropsWithChildren, ProviderExoticComponent } from 'react'
 
 type Components = [ProviderExoticComponent<any>, Record<string, any>]
 
-interface Props {
+interface Props extends PropsWithChildren {
   readonly components: Components[]
-  readonly children: ReactNode
 }
 
 export const Compose: FC<Props> = ({ components, children }) => (
