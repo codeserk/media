@@ -1,6 +1,7 @@
 package lacasadellibro
 
 import (
+	"encoding/json"
 	"media/module/book"
 	"strings"
 	"time"
@@ -61,19 +62,21 @@ type content struct {
 }
 
 func toData(c content) *book.SourceData {
+	originalJSON, _ := json.Marshal(c)
+
 	return &book.SourceData{
 		Source: book.SourceLaCasaDelLibro,
 		Metadata: &book.Metadata{
 			Title:       c.Name,
 			Description: c.Description,
 			Authors:     lo.Filter(c.Authors, func(author string, _ int) bool { return !strings.Contains(author, "/") }),
-			ISBN:        c.ISBN,
+			ISBN:        book.ToISBN(c.ISBN),
 			EAN:         c.EAN,
 			Publisher:   c.Editorial,
 			PageCount:   0,
 			PublishedAt: time.Unix(c.DateRelease, 0),
 		},
 		Images:   c.Images,
-		Original: c,
+		Original: string(originalJSON),
 	}
 }

@@ -1,6 +1,7 @@
 package google
 
 import (
+	"encoding/json"
 	"media/module/book"
 	"time"
 
@@ -8,6 +9,8 @@ import (
 )
 
 func toMetadata(c *books.Volume) *book.SourceData {
+	originalJSON, _ := json.Marshal(c)
+
 	if c == nil {
 		return nil
 	}
@@ -35,13 +38,13 @@ func toMetadata(c *books.Volume) *book.SourceData {
 			Title:       c.VolumeInfo.Title,
 			Description: c.VolumeInfo.Description,
 			Authors:     c.VolumeInfo.Authors,
-			ISBN:        isbn,
+			ISBN:        book.ToISBN(isbn),
 			Publisher:   c.VolumeInfo.Publisher,
 			Tags:        c.VolumeInfo.Categories,
 			PageCount:   int(c.VolumeInfo.PageCount),
 			PublishedAt: publishedAt,
 		},
 		Images:   images,
-		Original: c,
+		Original: string(originalJSON),
 	}
 }

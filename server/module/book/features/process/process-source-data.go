@@ -5,10 +5,10 @@ import (
 	"media/module/book"
 )
 
-func (s *service) ProcessSourceData(data book.SourceMultiData) (*book.CreateParams, error) {
-	metadata := data.Metadata()
-	if !metadata.IsValid() {
-		return nil, fmt.Errorf("invalid metadata")
+func (s *service) ProcessSourceData(isbn book.ISBN, data book.SourceMultiData) (*book.CreateParams, error) {
+	metadata, err := s.NormalizeMetadata(isbn, data)
+	if err != nil {
+		return nil, fmt.Errorf("normalize metadata: %v", err)
 	}
 
 	images := data.Images()
@@ -21,7 +21,7 @@ func (s *service) ProcessSourceData(data book.SourceMultiData) (*book.CreatePara
 		}
 	}
 
-	processedMetadata, err := s.ProcessMetadata(&metadata)
+	processedMetadata, err := s.ProcessMetadata(metadata)
 	if err != nil {
 		return nil, fmt.Errorf("process metadata: %v", err)
 	}

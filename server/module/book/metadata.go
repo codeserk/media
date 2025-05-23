@@ -8,11 +8,21 @@ import (
 	"github.com/samber/lo"
 )
 
+type ISBN string
+
+func ToISBN(text string) ISBN {
+	return ISBN(text)
+}
+
+func (i ISBN) Normalize() ISBN {
+	return ISBN(util.Sanitize(strings.ReplaceAll(string(i), " ", "")))
+}
+
 type Metadata struct {
 	Title       string
 	Description string
 	Authors     []string
-	ISBN        string
+	ISBN        ISBN
 	EAN         string
 	Publisher   string
 	Tags        []string

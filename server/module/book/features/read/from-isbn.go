@@ -5,7 +5,7 @@ import (
 	"media/module/book"
 )
 
-func (s *service) FromISBN(isbn string, process bool) (*book.Entity, error) {
+func (s *service) FromISBN(isbn book.ISBN, process bool) (*book.Entity, error) {
 	res, err := s.fromISBNInDB(isbn)
 	if err != nil {
 		return nil, fmt.Errorf("in db: %v", err)
@@ -22,7 +22,7 @@ func (s *service) FromISBN(isbn string, process bool) (*book.Entity, error) {
 	return res, nil
 }
 
-func (s *service) fromISBNInDB(isbn string) (*book.Entity, error) {
+func (s *service) fromISBNInDB(isbn book.ISBN) (*book.Entity, error) {
 	book, err := s.repository.GetByISBN(isbn)
 	if err != nil {
 		return nil, fmt.Errorf("from repository: %v", err)
@@ -31,13 +31,13 @@ func (s *service) fromISBNInDB(isbn string) (*book.Entity, error) {
 	return book, nil
 }
 
-func (s *service) fromISBNInSources(isbn string) (*book.Entity, error) {
+func (s *service) fromISBNInSources(isbn book.ISBN) (*book.Entity, error) {
 	data, err := s.source.FromISBN(isbn)
 	if err != nil {
 		return nil, fmt.Errorf("from source: %v", err)
 	}
 
-	params, err := s.process.ProcessSourceData(data)
+	params, err := s.process.ProcessSourceData(isbn, data)
 	if err != nil {
 		return nil, fmt.Errorf("process source data: %v", err)
 	}

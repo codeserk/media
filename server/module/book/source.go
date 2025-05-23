@@ -47,7 +47,7 @@ type SourceConfig struct {
 
 type SourceService interface {
 	Search(query string) ([]*SourceData, error)
-	FromISBN(isbn string) (SourceMultiData, error)
+	FromISBN(isbn ISBN) (SourceMultiData, error)
 }
 
 type SourceData struct {

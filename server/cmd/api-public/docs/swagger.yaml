@@ -42,16 +42,103 @@ definitions:
     - email
     - token
     type: object
-  book.searchResponse:
+  book.ImagesResponse:
     properties:
-      goodreads:
-        type: any
-      google:
-        type: any
-      items:
-        type: any
-      open:
-        type: any
+      colors:
+        items:
+          type: string
+        type: array
+      inkUrl:
+        type: string
+      mainUrl:
+        type: string
+      mediumUrl:
+        type: string
+      pixelBase64:
+        type: string
+      smallUrl:
+        type: string
+    required:
+    - colors
+    - inkUrl
+    - mainUrl
+    - mediumUrl
+    - pixelBase64
+    - smallUrl
+    type: object
+  book.MetadataResponse:
+    properties:
+      ageGroups:
+        items:
+          type: string
+        type: array
+      authors:
+        items:
+          type: string
+        type: array
+      description:
+        type: string
+      ean:
+        type: string
+      genres:
+        items:
+          type: string
+        type: array
+      isbn:
+        type: string
+      moods:
+        items:
+          type: string
+        type: array
+      pacingTypes:
+        items:
+          type: string
+        type: array
+      pageCount:
+        type: integer
+      publishedAt:
+        type: string
+      publisher:
+        type: string
+      settings:
+        items:
+          type: string
+        type: array
+      themes:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+    required:
+    - authors
+    - description
+    - isbn
+    - pageCount
+    - publishedAt
+    - publisher
+    - title
+    type: object
+  book.Response:
+    properties:
+      archivedAt:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: string
+      images:
+        $ref: '#/definitions/book.ImagesResponse'
+      metadata:
+        $ref: '#/definitions/book.MetadataResponse'
+      updatedAt:
+        type: string
+    required:
+    - createdAt
+    - id
+    - images
+    - metadata
+    - updatedAt
     type: object
   controller.HTTPError:
     properties:
@@ -254,16 +341,16 @@ paths:
       summary: Verify email
       tags:
       - auth
-  /api/v1/books/search:
+  /api/v1/books/isbn/{isbn}:
     get:
       consumes:
       - application/json
       description: Search books using a query
       operationId: searchBooks
       parameters:
-      - in: query
-        minLength: 3
-        name: query
+      - description: ISBN to look for
+        in: path
+        name: isbn
         required: true
         type: string
       produces:
@@ -272,7 +359,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/book.searchResponse'
+            $ref: '#/definitions/book.Response'
         "400":
           description: Bad Request
           schema:

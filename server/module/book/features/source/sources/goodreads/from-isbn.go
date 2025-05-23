@@ -43,7 +43,7 @@ func (s *source) FromISBN(isbn string) (*book.SourceData, error) {
 			Title:       title,
 			Description: description,
 			Authors:     authors,
-			ISBN:        isbn,
+			ISBN:        book.ToISBN(isbn),
 			Publisher:   "",
 			Tags:        genres,
 		},

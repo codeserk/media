@@ -1,5 +1,5 @@
 package book
 
 type ReadService interface {
-	FromISBN(isbn string, process bool) (*Entity, error)
+	FromISBN(isbn ISBN, process bool) (*Entity, error)
 }

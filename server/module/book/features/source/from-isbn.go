@@ -5,13 +5,13 @@ import (
 	"media/module/book"
 )
 
-func (s *service) FromISBN(isbn string) (book.SourceMultiData, error) {
+func (s *service) FromISBN(isbn book.ISBN) (book.SourceMultiData, error) {
 	var result []*book.SourceData
 	var merged book.Metadata
 	for _, source := range s.sources {
-		res, err := source.FromISBN(isbn)
+		res, err := source.FromISBN(string(isbn))
 		if err != nil {
-			log.Printf("error: %v", err)
+			log.Printf("from isbn (%s): %v", source, err)
 		}
 
 		if res == nil {

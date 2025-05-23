@@ -192,7 +192,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/books/search": {
+        "/api/v1/books/isbn/{isbn}": {
             "get": {
                 "description": "Search books using a query",
                 "consumes": [
@@ -208,10 +208,10 @@ const docTemplate = `{
                 "operationId": "searchBooks",
                 "parameters": [
                     {
-                        "minLength": 3,
                         "type": "string",
-                        "name": "query",
-                        "in": "query",
+                        "description": "ISBN to look for",
+                        "name": "isbn",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -219,7 +219,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/book.searchResponse"
+                            "$ref": "#/definitions/book.Response"
                         }
                     },
                     "400": {
@@ -337,20 +337,144 @@ const docTemplate = `{
                 }
             }
         },
-        "book.searchResponse": {
+        "book.ImagesResponse": {
             "type": "object",
+            "required": [
+                "colors",
+                "inkUrl",
+                "mainUrl",
+                "mediumUrl",
+                "pixelBase64",
+                "smallUrl"
+            ],
             "properties": {
-                "goodreads": {
-                    "type": "any"
+                "colors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
-                "google": {
-                    "type": "any"
+                "inkUrl": {
+                    "type": "string"
                 },
-                "items": {
-                    "type": "any"
+                "mainUrl": {
+                    "type": "string"
                 },
-                "open": {
-                    "type": "any"
+                "mediumUrl": {
+                    "type": "string"
+                },
+                "pixelBase64": {
+                    "type": "string"
+                },
+                "smallUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "book.MetadataResponse": {
+            "type": "object",
+            "required": [
+                "authors",
+                "description",
+                "isbn",
+                "pageCount",
+                "publishedAt",
+                "publisher",
+                "title"
+            ],
+            "properties": {
+                "ageGroups": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "authors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "ean": {
+                    "type": "string"
+                },
+                "genres": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "isbn": {
+                    "type": "string"
+                },
+                "moods": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "pacingTypes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "pageCount": {
+                    "type": "integer"
+                },
+                "publishedAt": {
+                    "type": "string"
+                },
+                "publisher": {
+                    "type": "string"
+                },
+                "settings": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "themes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "book.Response": {
+            "type": "object",
+            "required": [
+                "createdAt",
+                "id",
+                "images",
+                "metadata",
+                "updatedAt"
+            ],
+            "properties": {
+                "archivedAt": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "images": {
+                    "$ref": "#/definitions/book.ImagesResponse"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/book.MetadataResponse"
+                },
+                "updatedAt": {
+                    "type": "string"
                 }
             }
         },

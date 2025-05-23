@@ -6,5 +6,5 @@ type ProcessSourceDataResult struct {
 }
 
 type ProcessService interface {
-	ProcessSourceData(data SourceMultiData) (*CreateParams, error)
+	ProcessSourceData(isbn ISBN, data SourceMultiData) (*CreateParams, error)
 }

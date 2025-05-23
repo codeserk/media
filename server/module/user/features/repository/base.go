@@ -28,9 +28,9 @@ type document struct {
 
 	Role user.Role `bson:"role"`
 
-	CreatedAt  time.Time    `bson:"createdAt"`
-	UpdatedAt  time.Time    `bson:"updatedAt"`
-	ArchivedAt *time.Ticker `bson:"archivedAt"`
+	CreatedAt  time.Time  `bson:"createdAt"`
+	UpdatedAt  time.Time  `bson:"updatedAt"`
+	ArchivedAt *time.Time `bson:"archivedAt"`
 }
 
 // Queries

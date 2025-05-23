@@ -19,7 +19,7 @@ type UpdateParams struct {
 
 type Repository interface {
 	GetById(id string) (*Entity, error)
-	GetByISBN(isbn string) (*Entity, error)
+	GetByISBN(isbn ISBN) (*Entity, error)
 
 	Create(params CreateParams) (*Entity, error)
 

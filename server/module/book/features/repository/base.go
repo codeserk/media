@@ -20,9 +20,9 @@ type document struct {
 	Sources  book.SourceMultiData
 	Images   book.Images
 
-	CreatedAt  time.Time    `bson:"createdAt"`
-	UpdatedAt  time.Time    `bson:"updatedAt"`
-	ArchivedAt *time.Ticker `bson:"archivedAt"`
+	CreatedAt  time.Time  `bson:"createdAt"`
+	UpdatedAt  time.Time  `bson:"updatedAt"`
+	ArchivedAt *time.Time `bson:"archivedAt"`
 }
 
 // Queries

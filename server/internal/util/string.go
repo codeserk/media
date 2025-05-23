@@ -1,23 +1,20 @@
 package util
 
 import (
-	"regexp"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 func Sanitize(text string) string {
 	text = strings.TrimSpace(text)
-	text = removeEmojisAndSpecialChars(text)
 
 	return text
 }
 
-func removeEmojisAndSpecialChars(text string) string {
-	// Define a regular expression to match emojis and special characters
-	re := regexp.MustCompile(`[^\w\s]`)
+var caser = cases.Title(language.AmericanEnglish)
 
-	// Replace emojis and special characters with an empty string
-	text = re.ReplaceAllString(text, "")
-
-	return text
+func Capitalize(text string) string {
+	return caser.String(text)
 }

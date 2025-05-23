@@ -21,5 +21,5 @@ type Entity struct {
 
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
-	ArchivedAt *time.Ticker
+	ArchivedAt *time.Time
 }

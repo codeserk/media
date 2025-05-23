@@ -9,8 +9,7 @@ import (
 func Handle(router *mux.Router, read book.ReadService) {
 	h := handler{read}
 
-	router.Handle("/books/search", h.search()).Methods("GET", "OPTIONS")
-
+	router.Handle("/books/isbn/{isbn}", h.getBookFromISBN()).Methods("GET", "OPTIONS")
 }
 
 type handler struct {
